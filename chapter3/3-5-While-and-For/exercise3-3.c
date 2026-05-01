@@ -33,7 +33,7 @@ void expand(char s1[], char s2[]) {
 			// Imagine 'a' through 'b' where the domain is 0-9.
 			// If 'a' is greater than 0, but less than or equal to 9, and 'b' is greater than 'a' but less than or equal to 9
 			// This accounts for all integers
-			if ((s1[i-1] >= '0' && s1[i-1] <= '9') && (s1[i+1] >= s1[i-1]) && (s1[i+1] <= '9')) {
+			if ((s1[i-1] >= '0' && s1[i-1] <= '9') && (s1[i+1] >= s1[i-1]) && (s1[i+1] <= '9')) { // For all integers
 				// 1 is subtracted from itterationsNeeded because we will just use the ending number that the user already types in s1.
 				int itterationsNeeded = s1[i+1] - s1[i-1] - 1;
 				
@@ -50,7 +50,7 @@ void expand(char s1[], char s2[]) {
 				continue;
 				
 			}
-			else if ((s1[i-1] >= 'a' && s1[i-1] <= 'z') && (s1[i+1] >= s1[i-1]) && (s1[i+1] <= 'z')) { // This does pretty much the same thing as the version above, just adjusted for characters instead of integers
+			else if ((s1[i-1] >= 'a' && s1[i-1] <= 'z') && (s1[i+1] >= s1[i-1]) && (s1[i+1] <= 'z')) { // For all lowercase letters
 				// Gets the difference between the starting character and ending character
 				int itterationsNeeded = s1[i+1] - s1[i-1] - 1;
 
@@ -66,7 +66,22 @@ void expand(char s1[], char s2[]) {
 				i++;
 				continue;
 			}	
+			else if ((s1[i-1] >= 'A' && s1[i-1] <= 'Z') && (s1[i+1] >= s1[i-1]) && (s1[i+1] <= 'Z')) { // For all uppercase letters
+				// Gets the difference between the starting character and ending character 
+				int itterationsNeeded = s1[i+1] - s1[i-1] - 1;
 
+				// Creates a starting number by subtracting the starting character 'A' to starting from the integer 0; 
+				int startingNumber = s1[i-1] - 'A';
+				
+				// Itterate through the difference between the starting character and ending character
+				for (int j = 1; j <= itterationsNeeded; j++) {
+					// Add the starting character plus the current itteration from 1 (0 is added from s1 directly), then add 'A' to turn it to its corresponding character type
+					s2[k++] = startingNumber + j + 'A';	
+				}
+				
+				i++;
+				continue;
+			}
 		}
 
 		// If the current character is not '-', add it to the output string
