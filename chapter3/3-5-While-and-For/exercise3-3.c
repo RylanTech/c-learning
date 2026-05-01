@@ -34,22 +34,46 @@ void expand(char s1[], char s2[]) {
 			// If 'a' is greater than 0, but less than or equal to 9, and 'b' is greater than 'a' but less than or equal to 9
 			// This accounts for all integers
 			if ((s1[i-1] >= '0' && s1[i-1] <= '9') && (s1[i+1] >= s1[i-1]) && (s1[i+1] <= '9')) {
-				int itterationsNeeded = s1[i+1] - s1[i-1];
+				// 1 is subtracted from itterationsNeeded because we will just use the ending number that the user already types in s1.
+				int itterationsNeeded = s1[i+1] - s1[i-1] - 1;
+				
+				// Creating a starting number (integer) from the character that is used to start with. e.g. character '1' translates to integer 1
 				int startingNumber = s1[i-1] - '0';
 
-				for (int j = 1; j <= itterationsNeeded - 1; j++) {
-					s2[k++] = startingNumber + j + '0';	
+				// Itterating through the difference between the starting integer and ending integer
+				for (int j = 1; j <= itterationsNeeded; j++) {
+					// Add the starting integer plus the current itteration starting from 1 (0 is added from s1 directly), then add '0' to turn it into its corresponding character type
+					s2[k++] = startingNumber + j + '0';
 				}
 
 				i++;
 				continue;
 				
 			}
+			else if ((s1[i-1] >= 'a' && s1[i-1] <= 'z') && (s1[i+1] >= s1[i-1]) && (s1[i+1] <= 'z')) { // This does pretty much the same thing as the version above, just adjusted for characters instead of integers
+				// Gets the difference between the starting character and ending character
+				int itterationsNeeded = s1[i+1] - s1[i-1] - 1;
+
+				// Creates a starting number by subtracting the starting character 'a' to starting from the integer 0; 
+				int startingNumber = s1[i-1] - 'a';
+				
+				// Itterate through the difference between the starting character and ending character
+				for (int j = 1; j <= itterationsNeeded; j++) {
+					// Add the starting character plus the current itteration from 1 (0 is added from s1 directly), then add 'a' to turn it to its corresponding character type
+					s2[k++] = startingNumber + j + 'a';	
+				}
+				
+				i++;
+				continue;
+			}	
 
 		}
+
+		// If the current character is not '-', add it to the output string
 		s2[k++] = s1[i++];
 	}
 	
+	// Add a string termination character to the output string
 	s2[k] = '\0';
 }
 
