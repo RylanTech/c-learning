@@ -34,6 +34,12 @@ int getint(int *pn) {
 	if (c == '+' || c == '-') {
 		c = getch();
 	}
+	
+	if (!isdigit(c)) {
+		ungetch(c);
+		*pn = 0;
+		return 0;
+	}
 
 	for (*pn = 0; isdigit(c); c = getch()) { // Convert the input into an intger and place it in the point pn
 		*pn = 10 * *pn + (c - '0');
